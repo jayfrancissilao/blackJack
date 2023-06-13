@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>catDevBlackjack</title>
+</head>
+<body>
+
+<h1>Blackjack Game</h1>
+
+<p id="message-el"> Want to play a round?</p>
+<p id="card-el">Cards:</p>
+<p id="sum-el">Sum:</p>
+<p id="newCard-el">New Card:</p>
+<p id="player-el"></p>
+
+<!--button-->
+<button onclick="startGame()">START GAME</button>
+<button onclick="newCard()">NEW CARD</button>
+
+
+<script>
+
+        //object as u remember , contains key values print
+    var player = {
+        name : "jay",
+        chips : 200
+    };
+
+    //14 step set the values of firstCard and SecondCard $$ 15 step (latest) comment muna
+    //var firstCard = getRandomCard();
+    //var secondCard = getRandomCard();
+    //1 step
+    //var firstCard = 10;
+    //var secondCard = 11;
+    //11 step solving our cards problem with an array $$ array - ordered list of item  $$ 15 step (latest) comment muna
+    //var card = [firstCard , secondCard  ]; (recap we define the array)
+    var card = [];
+    //var sum = firstCard + secondCard ;
+    var sum = 0;
+
+    //2 step
+    var blackJack = false;
+
+    //3 step create a variable called isAlive and assign it to true && kumbaga pag buhay pa yung player TRUE pag patay na FALSE
+    var isAlive = false;
+
+    //4 step add the message variable
+    var message = "";
+
+    //6 step create a display message
+    var messageEl = document.querySelector("#message-el");
+
+    //7 step create a display the sum
+    var sumEl = document.querySelector("#sum-el");
+
+    //8 step displaying the cards
+    var cardEl = document.querySelector("#card-el");
+
+    //step 9
+    var newCardEl = document.querySelector("#newCard-el");
+
+    var playerEl = document.querySelector("#player-el");
+
+    playerEl.textContent = player.name + " : $" + player.chips
+
+    //14 step create a funtion that always return 5
+//    function getRandomCard() {
+//        return 1;
+//    }
+
+    console.log(card);
+
+    //15 step make this function getRandomCard return a random number between  1 and 13
+    function getRandomCard(){
+        // if 1 -> return 11
+        // if 11-13 return 10
+        let randomCard = Math.floor(Math.random() * 13) + 1; // +1 to generate to 1-13
+        if (randomCard > 10) {
+            return 10;
+        } else if ( randomCard === 1) {
+            return 11;
+        } else {
+            return randomCard;
+        }
+    }
+    console.log(getRandomCard())
+
+
+
+
+    //10 step rename the startGame function $$ 16 step (latest)
+
+    function startGame() {
+        isAlive = true;
+        //generate two random numbers
+        var firstCard = getRandomCard();
+        var secondCard = getRandomCard();
+        //re-assign the cards and sum variables so that the game can start (re assign the array)
+        card = [firstCard , secondCard];
+        sum = firstCard + secondCard ;
+        renderGame();
+    }
+
+
+
+    //5 step create a button and create the function startGame();
+    function renderGame() {
+
+        //11 step rendering our firstCard and secondCard
+        //cardEl.textContent = "Cards :" + card[0] + " and " + card[1] ;
+
+        //13 step create a loop that renders out all the cards instead of just  two
+        cardEl.textContent = "Cards :" ;
+        for ( let i = 0; i < card.length; i++) {
+            cardEl.textContent += card[i] + " ";
+            console.log(cardEl)
+        }
+
+
+
+        if (sum === 21){
+            message = ("ur lucky person");
+            console.log(message);
+            blackJack = true;
+            isAlive = true;
+            console.log(isAlive);
+            messageEl.textContent = message;
+            sumEl.textContent = `Total: ${sum}`;
+
+        } else if( sum < 21 ) {
+            message = ("u want another card?");
+            console.log(message);
+            isAlive = true;
+            console.log(isAlive)
+            messageEl.textContent = message;
+            sumEl.textContent = sum;
+        }else{
+            message = ("ur out of the game");
+            console.log(message);
+            isAlive = false;
+            console.log(isAlive)
+            messageEl.textContent = message;
+            sumEl.textContent = sum;
+        }
+
+
+    } //end of function startGame();
+
+
+    //9 step create a new card button
+    function newCard() {
+        //16 step allow the player to get a new card of she is alive and does NOT have blackJack
+        if(isAlive === true && blackJack === false){
+            var thirdCard = getRandomCard();
+            newCardEl.textContent = `New Cards : ${thirdCard}`;
+            sum += thirdCard;
+//            recap also push to the array
+            card.push(thirdCard);
+            renderGame();
+        }
+
+
+
+        //14 step
+       // var thirdCard = getRandomCard();
+        //var thirdCard = 1;
+        //newCardEl.textContent = `New Cards : ${thirdCard}`;
+       // sum += thirdCard;
+        //12 step push this thirdCard to the card array
+       // card.push(thirdCard);
+       //console.log(card)
+        //renderGame();
+        //console.log("button was clicked")
+
+
+    } //end of function newCard();
+
+
+
+</script>
+
+</body>
+</html>
